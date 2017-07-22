@@ -72,6 +72,7 @@ public class HomeActivity extends SlidingPanelActivity implements
     public static final int EQUALIZER = 2;
 
     private static final int PERMISSION_REQUEST_STORAGE = 1;
+    private static final int PERMISSION_REQUEST_RECORD_AUDIO = 2;
     private Bundle mSavedInstanceState;
 
     private String mKey;
@@ -97,6 +98,14 @@ public class HomeActivity extends SlidingPanelActivity implements
     }
 
     private void init() {
+        // Get permission for audio visualizer
+        if (checkSelfPermission(Manifest.permission.RECORD_AUDIO) !=
+                    PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(
+                        new String[] {Manifest.permission.RECORD_AUDIO},
+                        PERMISSION_REQUEST_RECORD_AUDIO);
+        }
+
         // if we've been launched by an intent, parse it
         Intent launchIntent = getIntent();
         boolean intentHandled = false;
